@@ -49,6 +49,8 @@ public class Utils {
 
 	List<SpeciesProperty> speciesProperties = new ArrayList<>();
 	File folder = new File("tables");
+	checkTableFolder(folder);
+
 
 	for (File file : folder.listFiles()) {
 	    speciesProperties.addAll(readSpeciesProperties(file));
@@ -65,7 +67,15 @@ public class Utils {
 
     }
 
-    private static void initWorkbookStyle() {
+    private static void checkTableFolder(File folder) {
+    	if(folder.exists()) return;
+    	else{
+    		throw new RuntimeException("Ordner tables nicht gefunden. Ordner tables muss zuvor angelegt werden.");
+    	}
+		
+	}
+
+	private static void initWorkbookStyle() {
 	emptyCellStyle = writeWorkbook.createCellStyle();
 	emptyCellStyle.setFillForegroundColor(new XSSFColor(new java.awt.Color(234, 234, 234)));
 	emptyCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
